@@ -1,16 +1,16 @@
 ## Screenshot API Endpoint CRUD
 
 ### 1. GET – Menampilkan semua buku
-![GET All Books](Tugas/ss/GET%20ALL.png)
+![alt text](image-1.png)
 
 ### 2. GET – Menampilkan 1 buku berdasarkan ID
-![GET One Book](Tugas/ss/GET%201.png)
+![alt text](image.png)
 
 ### 3. POST – Menambah buku baru
-![POST Create Book](Tugas/ss/POST.png)
+![alt text](image-2.png)
 
 ### 4. PUT – Mengupdate buku
-![PUT Update Book](Tugas/ss/PUT.png)
+![alt text](image-3.png)
 
 ### 5. DELETE – Menghapus buku
-![DELETE Remove Book](Tugas/ss/DELETE.png)
+![alt text](image-4.png)
