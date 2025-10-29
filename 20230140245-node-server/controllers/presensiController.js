@@ -117,21 +117,35 @@ exports.deletePresensi = async (req, res) => {
 
 exports.updatePresensi = async (req, res) => {
   try {
-    const id = req.params.id;
-    const { nama } = req.body;
-
-    const data = await Presensi.findByPk(id);
-    if (!data) {
-      return res.status(404).json({ message: "Catatan presensi tidak ditemukan." });
+    const presensiId = req.params.id;
+    const { checkIn, checkOut, nama } = req.body;
+    if (checkIn === undefined && checkOut === undefined && nama === undefined) {
+      return res.status(400).json({
+        message:
+          "Request body tidak berisi data yang valid untuk diupdate (checkIn, checkOut, atau nama).",
+      });
+    }
+    const recordToUpdate = await Presensi.findByPk(presensiId);
+    if (!recordToUpdate) {
+      return res
+        .status(404)
+        .json({ message: "Catatan presensi tidak ditemukan." });
     }
 
-    data.nama = nama || data.nama;
-    await data.save();
+    recordToUpdate.checkIn = checkIn || recordToUpdate.checkIn;
+    recordToUpdate.checkOut = checkOut || recordToUpdate.checkOut;
+    recordToUpdate.nama = nama || recordToUpdate.nama;
+    await recordToUpdate.save();
 
-    res.json({ message: "Data presensi berhasil diupdate", data });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Terjadi kesalahan pada server" });
+    res.json({
+      message: "Data presensi berhasil diperbarui.",
+      data: recordToUpdate,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Terjadi kesalahan pada server", error: error.message });
   }
 };
+
 
