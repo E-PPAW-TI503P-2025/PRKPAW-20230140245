@@ -7,6 +7,7 @@ const morgan = require("morgan");
 // Impor router
 const presensiRoutes = require("./route/presensi");
 const reportRoutes = require("./route/report");
+const authRoutes = require("./route/auth");
 
 // Middleware
 app.use(cors());
@@ -23,6 +24,7 @@ const ruteBuku = require("./route/books");
 app.use("/api/books", ruteBuku);
 app.use("/api/presensi", presensiRoutes);
 app.use("/api/reports", reportRoutes);
+app.use("/api/auth", authRoutes);
 app.listen(PORT, () => {
   console.log(`Express server running at http://localhost:${PORT}/`);
 });
