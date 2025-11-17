@@ -5,13 +5,16 @@ const JWT_SECRET = 'INI_ADALAH_KUNCI_RAHASIA_ANDA_YANG_SANGAT_AMAN';
 
 exports.register = async (req, res) => {
   try {
+    console.log("REQ BODY:", req.body);
     const { nama, email, password, role } = req.body;
+    const namaUser = nama;
 
     if (!nama || !email || !password) {
       return res.status(400).json({ message: "Nama, email, dan password harus diisi" });
     }
 
-    if (role && !['mahasiswa', 'admin'].includes(role)) {
+    if (role && !['mahasiswa', 'admin'].includes(role.toLowerCase())) {
+
       return res.status(400).json({ message: "Role tidak valid. Harus 'mahasiswa' atau 'admin'." });
     }
 
@@ -20,7 +23,7 @@ exports.register = async (req, res) => {
       nama,
       email,
       password: hashedPassword,
-      role: role || 'mahasiswa' 
+      role: role || 'Mahasiswa' 
     });
 
     res.status(201).json({
