@@ -3,49 +3,24 @@ const { Presensi } = require("../models");
 const { format } = require("date-fns-tz");
 const timeZone = "Asia/Jakarta";
 
+// controllers/presensiController.js (Revisi CheckIn)
 exports.CheckIn = async (req, res) => {
-  // 2. Gunakan try...catch untuk error handling
   try {
-    const { id: userId, nama: userName } = req.user;
-    const waktuSekarang = new Date();
+    const { id: userId } = req.user;
+    const { latitude, longitude } = req.body; // <-- Ambil data lokasi
 
-    // 3. Ubah cara mencari data menggunakan 'findOne' dari Sequelize
-    const existingRecord = await Presensi.findOne({
-      where: { userId: userId, checkOut: null },
-    });
+    // ... (Logika validasi & check existing record) ...
 
-    if (existingRecord) {
-      return res
-        .status(400)
-        .json({ message: "Anda sudah melakukan check-in hari ini." });
-    }
-
-    // 4. Ubah cara membuat data baru menggunakan 'create' dari Sequelize
     const newRecord = await Presensi.create({
       userId: userId,
-      nama: userName,
-      checkIn: waktuSekarang,
+      checkIn: new Date(),
+      latitude: latitude, // <-- Simpan ke database
+      longitude: longitude, // <-- Simpan ke database
     });
-
-    const formattedData = {
-      userId: newRecord.userId,
-      nama: newRecord.nama,
-      checkIn: format(newRecord.checkIn, "yyyy-MM-dd HH:mm:ssXXX", { timeZone }),
-      checkOut: null
-    };
-
-    res.status(201).json({
-      message: `Halo ${userName}, check-in Anda berhasil pada pukul ${format(
-        waktuSekarang,
-        "HH:mm:ss",
-        { timeZone }
-      )} WIB`,
-      data: formattedData,
-    });
-  } catch (error) {
-    res.status(500).json({ message: "Terjadi kesalahan pada server", error: error.message });
-  }
+    // ...
+  } catch (error) {  }
 };
+
 
 exports.CheckOut = async (req, res) => {
   // Gunakan try...catch
