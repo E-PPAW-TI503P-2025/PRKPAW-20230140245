@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Presensi extends Model {
     /**
@@ -10,30 +8,43 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-  Presensi.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
-}
-
-  }
-  Presensi.init({
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    nama: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    checkIn: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    checkOut: {
-      type: DataTypes.DATE,
-      allowNull: true, // Boleh null
+      Presensi.belongsTo(models.User, {
+        foreignKey: "userId",
+        as: "user",
+      });
     }
-  }, {
-    sequelize,
-    modelName: 'Presensi',
-  });
+  }
+  Presensi.init(
+    {
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      checkIn: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      checkOut: {
+        type: DataTypes.DATE,
+        allowNull: true, // Boleh null
+      },
+      latitude: {
+        type: DataTypes.DECIMAL(10, 7),
+        allowNull: false,
+      },
+      longitude: {
+        type: DataTypes.DECIMAL(10, 7),
+        allowNull: false,
+      },
+      buktiFoto: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+    },
+    {
+      sequelize,
+      modelName: "Presensi",
+    }
+  );
   return Presensi;
 };

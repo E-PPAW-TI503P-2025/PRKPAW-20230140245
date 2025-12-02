@@ -1,13 +1,18 @@
+require("dotenv").config();
+console.log("Nilai JWT_SECRET di server.js:", process.env.JWT_SECRET);
 const express = require("express");
 const cors = require("cors");
 const app = express();
 const PORT = 3001;
 const morgan = require("morgan");
+const path = require("path");
 
 // Impor router
 const presensiRoutes = require("./route/presensi");
 const reportRoutes = require("./route/report");
 const authRoutes = require("./route/auth");
+
+app.use("/upload", express.static(path.join(__dirname, "upload")));
 
 // Middleware
 app.use(cors());
@@ -20,6 +25,8 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
   res.send("Home Page for API");
 });
+
+
 const ruteBuku = require("./route/books");
 app.use("/api/books", ruteBuku);
 app.use("/api/presensi", presensiRoutes);

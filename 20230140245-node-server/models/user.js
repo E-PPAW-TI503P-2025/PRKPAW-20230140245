@@ -1,46 +1,50 @@
-  'use strict';
-  const {
-    Model
-  } = require('sequelize');
-  module.exports = (sequelize, DataTypes) => {
-    class User extends Model {
-      /**
-       * Helper method for defining associations.
-       * This method is not a part of Sequelize lifecycle.
-       * The `models/index` file will call this method automatically.
-       */
-      static associate(models) { User.hasMany(models.Presensi, { foreignKey: 'userId', as: 'presensi' }); }
+"use strict";
+const { Model } = require("sequelize");
+module.exports = (sequelize, DataTypes) => {
+  class User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      User.hasMany(models.Presensi, {
+        foreignKey: "userId",
+        as: "presensi",
+      });
     }
-    User.init({
+  }
+  User.init(
+    {
       nama: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
         validate: {
-          isEmail: true 
-        }
+          isEmail: true, // Validasi format email
+        },
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       role: {
-        type: DataTypes.ENUM('mahasiswa', 'admin'), 
+        type: DataTypes.ENUM("mahasiswa", "admin"), // Tipe ENUM
         allowNull: false,
-        defaultValue: 'mahasiswa',
+        defaultValue: "mahasiswa",
         validate: {
-          isIn: [['mahasiswa', 'admin']] 
-        }
+          isIn: [["mahasiswa", "admin"]], // Validasi input
+        },
       },
-    }, {
+    },
+    {
       sequelize,
-      modelName: 'User',
-    });
-    return User;
-  };
-
-
+      modelName: "User",
+    }
+  );
+  return User;
+};
