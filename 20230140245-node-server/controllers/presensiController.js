@@ -32,11 +32,7 @@ exports.CheckIn = async (req, res) => {
     const waktuSekarang = new Date();
 
     const { latitude, longitude } = req.body;
-    const buktiFoto = req.file ? req.file.path : null;
-
-   
-
-
+    const buktiFoto = req.file ? req.file.filename : null;
     const existingRecord = await Presensi.findOne({
       where: { userId: userId, checkOut: null },
     });

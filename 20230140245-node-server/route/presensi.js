@@ -9,7 +9,7 @@ router.use(authenticateToken);
 
 router.post(
   "/check-in",
-  [authenticateToken, presensiController.upload.single("image")],
+  [authenticateToken, presensiController.upload.single("buktiFoto")],
   presensiController.CheckIn
 );
 router.post("/check-out", presensiController.CheckOut);
