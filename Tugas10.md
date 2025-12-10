@@ -1,5 +1,7 @@
-Halaman Laporan
-![alt text](<Praktikum_PAW/Tugas/ss/Tugas10/Screenshot 2025-12-09 221641.png>)
+![alt text](<Tugas/ss/Tugas10/Screenshot 2025-12-09 221749.png>)
 
-Database Presesnsi
-![alt text](<Praktikum_PAW/Tugas/ss/Tugas10/Screenshot 2025-12-09 221749.png>)
+
+![alt text](<Tugas/ss/Tugas10/Screenshot 2025-12-10 113943.png>)
+
+
+![alt text](<Tugas/ss/Tugas10/Screenshot 2025-12-10 114109.png>)
