@@ -16,10 +16,12 @@ module.exports = (sequelize, DataTypes) => {
   SensorLog.init({
     suhu: DataTypes.FLOAT,
     kelembaban: DataTypes.FLOAT,
-    cahaya: DataTypes.INTEGER
+    cahaya: DataTypes.INTEGER,
+    motion: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'SensorLog',
+    tableName: 'SensorLogs',
   });
   return SensorLog;
 };

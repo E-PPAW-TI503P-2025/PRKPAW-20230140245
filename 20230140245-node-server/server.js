@@ -7,6 +7,14 @@ const PORT = 3001;
 const morgan = require("morgan");
 const path = require("path");
 
+// Impor models dan sync database
+const db = require("./models");
+db.sequelize.sync({ force: false }).then(() => {
+  console.log("Database synced successfully.");
+}).catch((err) => {
+  console.error("Error syncing database:", err);
+});
+
 // Impor router
 const presensiRoutes = require("./route/presensi");
 const reportRoutes = require("./route/report");
