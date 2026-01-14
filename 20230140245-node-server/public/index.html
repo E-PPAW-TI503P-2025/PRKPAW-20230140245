@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TempHumid Pro Monitor</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo-circle">T</div>
+          <div class="app-title">
+            <span class="app-name">TempHumid</span>
+            <span class="app-subtitle">Pro Monitor</span>
+          </div>
+        </div>
+        <nav class="sidebar-menu">
+          <div class="menu-section">
+            <button class="menu-item active">
+              <span class="menu-icon">📊</span>
+              <span>Dashboard</span>
+            </button>
+          </div>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="device-tag">
+            <span class="tag-label">ESP32</span>
+            <span class="tag-chip">Online</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="breadcrumb">
+            <span class="breadcrumb-root">Dashboard</span>
+            <span class="breadcrumb-current">Overview</span>
+          </div>
+          <div class="topbar-status">
+            <span class="status-pill status-live">LIVE</span>
+            <span class="status-pill status-connected">Connected</span>
+            <div class="clock" id="clock"></div>
+          </div>
+        </header>
+
+        <section class="metrics-row">
+          <div class="card metric-card">
+            <div class="card-header">
+              <span class="metric-label">Temperature</span>
+              <span class="metric-badge metric-normal" id="temp-status"
+                >NORMAL</span
+              >
+            </div>
+            <div class="metric-main">
+              <div class="gauge">
+                <svg viewBox="0 0 120 60">
+                  <path
+                    d="M 10 60 A 50 50 0 0 1 110 60"
+                    fill="none"
+                    stroke="#eee"
+                    stroke-width="14"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    id="temp-gauge"
+                    d="M 10 60 A 50 50 0 0 1 110 60"
+                    fill="none"
+                    stroke="url(#tempGradient)"
+                    stroke-width="14"
+                    stroke-linecap="round"
+                    stroke-dasharray="0 180"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="tempGradient"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="0%"
+                    >
+                      <stop offset="0%" stop-color="#4facfe" />
+                      <stop offset="100%" stop-color="#f5576c" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div class="gauge-value">
+                  <span id="temp-value">0.0</span>
+                  <span class="unit">°C</span>
+                </div>
+              </div>
+            </div>
+            <div class="metric-footer">
+              <span class="metric-range">0°C</span>
+              <span class="metric-trend" id="temp-trend"></span>
+              <span class="metric-range">50°C</span>
+            </div>
+          </div>
+
+          <div class="card metric-card">
+            <div class="card-header">
+              <span class="metric-label">Humidity</span>
+              <span class="metric-badge metric-normal" id="hum-status"
+                >NORMAL</span
+              >
+            </div>
+            <div class="metric-main">
+              <div class="gauge">
+                <svg viewBox="0 0 120 60">
+                  <path
+                    d="M 10 60 A 50 50 0 0 1 110 60"
+                    fill="none"
+                    stroke="#eee"
+                    stroke-width="14"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    id="hum-gauge"
+                    d="M 10 60 A 50 50 0 0 1 110 60"
+                    fill="none"
+                    stroke="url(#humGradient)"
+                    stroke-width="14"
+                    stroke-linecap="round"
+                    stroke-dasharray="0 180"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="humGradient"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="0%"
+                    >
+                      <stop offset="0%" stop-color="#43e97b" />
+                      <stop offset="100%" stop-color="#38f9d7" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div class="gauge-value">
+                  <span id="hum-value">0.0</span>
+                  <span class="unit">%</span>
+                </div>
+              </div>
+            </div>
+            <div class="metric-footer">
+              <span class="metric-range">0%</span>
+              <span class="metric-trend" id="hum-trend"></span>
+              <span class="metric-range">100%</span>
+            </div>
+          </div>
+
+          <aside class="card status-card">
+            <div class="card-header">
+              <span class="metric-label">System Status</span>
+            </div>
+            <ul class="status-list">
+              <li class="status-item">
+                <div>
+                  <div class="status-label">WiFi Signal</div>
+                  <div class="status-value" id="wifi-status">Excellent</div>
+                </div>
+                <div class="status-icon status-signal">
+                  <span></span><span></span><span></span><span></span>
+                </div>
+              </li>
+              <li class="status-item">
+                <div>
+                  <div class="status-label">Uptime</div>
+                  <div class="status-value" id="uptime-value">–</div>
+                </div>
+              </li>
+              <li class="status-item">
+                <div>
+                  <div class="status-label">Data Rate</div>
+                  <div class="status-value">5s interval</div>
+                </div>
+              </li>
+              <li class="status-item">
+                <div>
+                  <div class="status-label">Memory</div>
+                  <div class="status-value" id="memory-value">42%</div>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 42%"></div>
+                </div>
+              </li>
+            </ul>
+            <div class="status-footer">
+              <span class="status-label">Last reading</span>
+              <span class="status-value" id="last-reading">–</span>
+            </div>
+          </aside>
+        </section>
+
+        <section class="card realtime-card">
+          <div class="card-header">
+            <span class="metric-label">Real-time Monitoring</span>
+          </div>
+          <div class="realtime-grid" id="realtime-grid"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
